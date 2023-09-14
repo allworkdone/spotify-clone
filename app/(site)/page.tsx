@@ -1,7 +1,14 @@
 import Header from "@/components/Header";
 import ListItem from "@/components/ListItem";
+import getSongs from "@/actions/getSongs"
+import PageContent from "../components/PageContent";
 
-export default function Home() {
+// This way the page will not be cached and will be upto date
+export const revalidate = 0;
+
+export default async function Home() {
+  const songs = await getSongs();
+
   return (
     <div
       className="text-neutral-900
@@ -43,7 +50,7 @@ export default function Home() {
         <div className="flex justify-between items-center">
           <h1 className="text-white text-2xl font-semibold">Newest songs</h1>
         </div>
-        <div className="text-white">List of Songs!</div>
+        <PageContent songs={songs}/>
       </div>
     </div>
   );
